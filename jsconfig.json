@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+    // "images": {
+    //   "unoptimized": true,
+    //   "domains": ["cms.dev80.tech"]
+    // }
+  }
+}
