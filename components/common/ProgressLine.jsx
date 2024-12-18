@@ -8,7 +8,7 @@ export default function ProgressLine({
   const targetElement = useRef(null);
   const [counted, setCounted] = useState(0);
 
-  const animateCount = (startValue, endValue, duration = 2000) => {
+  const animateCount = (startValue, endValue, duration = 500) => {
     const startTime = performance.now();
 
     const step = (currentTime) => {
