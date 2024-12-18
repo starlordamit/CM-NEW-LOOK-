@@ -268,6 +268,8 @@ export default function ModernCreatorProfile({ creator }) {
                           muted={!isUnmuted}
                           autoPlay
                           loop
+                          playsInline
+                          preload="metadata"
                           style={{
                             borderRadius: 15,
                           }}
