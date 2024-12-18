@@ -61,7 +61,7 @@ export default function ProgressLine({
     <div
       className={className}
       ref={targetElement}
-      style={{ width: `${counted}%`, transition: "width 0.3s ease-out" }}
+      style={{ width: `${counted}%`, transition: "width 0.7s ease-out" }}
     ></div>
   );
 }
