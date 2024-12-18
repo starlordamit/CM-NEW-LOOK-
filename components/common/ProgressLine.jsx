@@ -5,60 +5,63 @@ export default function ProgressLine({
   progress,
   className = "progress-bar wow fadeInLeft",
 }) {
-  const targetElement = useRef();
+  const targetElement = useRef(null);
+  const [counted, setCounted] = useState(0);
 
-  const [counted, setCounted] = useState();
-  const startCountup = () => {
-    const intervalId = setInterval(() => {
-      setCounted((pre) => {
-        if (pre == progress) {
-          clearInterval(intervalId);
-          return pre;
-        } else {
-          return pre + 1;
-        }
-      });
-    }, 2000 / progress);
+  const animateCount = (startValue, endValue, duration = 2000) => {
+    const startTime = performance.now();
+
+    const step = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const fraction = Math.min(elapsed / duration, 1);
+      const newValue = Math.floor(
+        startValue + (endValue - startValue) * fraction
+      );
+
+      setCounted((prev) => (prev !== newValue ? newValue : prev));
+
+      if (fraction < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
   };
 
   useEffect(() => {
-    function handleIntersection(entries) {
-      entries.forEach((entry) => {
+    const handleIntersection = (entries, observer) => {
+      for (let entry of entries) {
         if (entry.isIntersecting) {
-          setCounted(0);
-          startCountup();
+          // Start counting only when element is visible
+          animateCount(0, progress);
+          // Unobserve once we start the animation to prevent repeated triggers
           observer.unobserve(entry.target);
-          // Do something when the observed element enters the viewport
+          break;
         }
-      });
+      }
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    });
+
+    if (targetElement.current) {
+      observer.observe(targetElement.current);
     }
 
-    // Options for the Intersection Observer
-    const options = {
-      root: null, // Use the viewport as the root
-      rootMargin: "0px", // No margin around the root
-      threshold: 0.5, // Trigger when 50% of the observed element is visible
-    };
-
-    // Create an Intersection Observer and pass in the callback function and options
-    const observer = new IntersectionObserver(handleIntersection, options);
-
-    // Start observing the target element
-
-    observer.observe(targetElement.current);
     return () => {
-      setCounted(30);
+      // Cleanup if component unmounts
+      observer.disconnect();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [progress]);
 
   return (
-    <>
-      <div
-        className={className}
-        ref={targetElement}
-        style={{ width: `${counted}%`, transition: "width 0.3s ease-out" }}
-      ></div>
-    </>
+    <div
+      className={className}
+      ref={targetElement}
+      style={{ width: `${counted}%`, transition: "width 0.3s ease-out" }}
+    ></div>
   );
 }
