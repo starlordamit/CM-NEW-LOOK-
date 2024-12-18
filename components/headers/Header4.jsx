@@ -6,7 +6,7 @@ import Image from "next/image";
 import ModeSwitcher from "../common/ModeSwitcher";
 import { openMenu } from "@/utlis/toggleMenu";
 export default function Header4({
-  parentClass = "rainbow-header header-default header-not-transparent header-sticky",
+  parentClass = "rainbow-header header-default header-not-transparent header-fixed",
   btnClass = "btn-default btn-small round",
 }) {
   return (
