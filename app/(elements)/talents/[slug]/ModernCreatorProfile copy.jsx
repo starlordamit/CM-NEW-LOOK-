@@ -2,25 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import Blogs from "@/components/common/Blogs";
-import Footer3 from "@/components/footers/Footer3";
-import Header3 from "@/components/headers/Header3";
-import About from "@/components/homes/index-personal-portfolio/About";
-import Brands from "@/components/homes/index-personal-portfolio/Brands";
-import Hero from "@/components/homes/index-personal-portfolio/Hero";
-import Portfolio from "@/components/homes/index-personal-portfolio/Portfolio";
-import Skills from "@/components/homes/index-personal-portfolio/Skills";
-import Testimonials from "@/components/homes/index-personal-portfolio/Testimonials";
+// import Icon from "@/components/common/Icon";
 import ReactMarkdown from "react-markdown";
-import { progressData } from "@/data/progress";
-
-// import { Progress } from "@nextui-org/react";
-// import { useEffect } from "react";
-
 import ProgressLine from "@/components/common/ProgressLine";
-// import CircularProgress from "@/components/common/CirculerProgress";
-import CirculerProgress from "@/components/common/CirculerProgress";
 import {
   FaInstagram,
   FaFacebook,
@@ -29,14 +13,35 @@ import {
   FaLink,
   FaWhatsapp,
 } from "react-icons/fa";
-import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { number } from "prop-types";
-
 ChartJS.register(ArcElement, Tooltip, Legend);
+import { pricingPlans, pricingPlans2 } from "@/data/pricing";
 
 export default function ModernCreatorProfile({ creator }) {
   const [activeTab, setActiveTab] = useState("about");
+  const hhh2 = [
+    {
+      platform: "Instagram",
+      dp: "https://cms.dev80.tech/uploads/Kind_5ac8dd7c1c.jpg",
+      handle: "creator_instagram",
+      followers: 15000,
+      url: "https://instagram.com/creator_instagram",
+    },
+    {
+      platform: "Twitter",
+      dp: "https://cms.dev80.tech/uploads/Kind_5ac8dd7c1c.jpg",
+      handle: "creator_twitter",
+      followers: 8000,
+      url: "https://twitter.com/creator_twitter",
+    },
+    {
+      platform: "Twitter",
+      dp: "https://cms.dev80.tech/uploads/Kind_5ac8dd7c1c.jpg",
+      handle: "creator_twitter",
+      followers: 8000,
+      url: "https://twitter.com/creator_twitter",
+    },
+  ];
 
   // Default image URL
   const imageUrl = creator.images?.[0]?.formats?.large?.url
@@ -80,7 +85,8 @@ export default function ModernCreatorProfile({ creator }) {
     }
     return { platform: "Link", icon: <FaLink />, username: trimmedUrl };
   };
-
+  const HH1 = creator.Handel || [];
+  console.log("CREATOR", creator.Handel);
   const ageGroups = creator.AudienceStats || [];
 
   const [unmutedIndex, setUnmutedIndex] = useState(null);
@@ -117,6 +123,7 @@ export default function ModernCreatorProfile({ creator }) {
             </div>
           </div>
           {/* End Section Title  */}
+          {/* =================== =================== =================== =================== =================== =================== */}
 
           {/* Start tab  */}
           <div
@@ -134,46 +141,104 @@ export default function ModernCreatorProfile({ creator }) {
                   <ReactMarkdown>{creator.Description}</ReactMarkdown>
                   <p className="description"></p>
                 </div>
-                <div className="advance-tab-bottom">
-                  <div className="advance-tab-button advance-tab-button-1">
-                    <ul
-                      className="nav nav-tabs tab-button-list"
-                      id="myTab"
-                      role="tablist"
-                    >
-                      {creator.Handel.map((url) => {
-                        {
-                          console.log(url);
-                        }
-                        <li className="nav-item" role="presentation">
-                          <a
-                            href="#"
-                            className="nav-link tab-button tab-with-icon bg-color-white-off active"
-                            id="case-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#case"
-                            role="tab"
-                            aria-controls="case"
-                            aria-selected="true"
+                {/* =================== =================== =================== =================== =================== =================== */}
+                {/* // src/components/CreatorProfileCard.jsx line 1 */}
+                {/* // src/components/CreatorCards.jsx line 1 */}
+                // src/components/CreatorCards.jsx line 1
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "10px",
+                    padding: "10px",
+                  }}
+                >
+                  {HH1.map((profile, index) => {
+                    const isDarkMode = true; // Replace with your actual dark mode state
+                    return (
+                      <div
+                        key={index}
+                        style={{
+                          width: "250px",
+                          borderRadius: "10px",
+                          boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: isDarkMode
+                            ? "rgba(40,40,40,0.8)"
+                            : "rgba(255,255,255,0.7)",
+                          padding: "10px",
+                          gap: "10px",
+                          position: "relative",
+                          color: isDarkMode ? "#ddd" : "#333",
+                        }}
+                      >
+                        <div style={{ position: "relative" }}>
+                          <img
+                            src={
+                              "https://cms.dev80.tech" +
+                              profile.ProfileImage.url
+                            }
+                            alt={profile.handle}
+                            style={{
+                              width: "60px",
+                              height: "60px",
+                              borderRadius: "50%",
+                              border: isDarkMode
+                                ? "2px solid #444"
+                                : "2px solid #fff",
+                              objectFit: "cover",
+                            }}
+                          />
+                          <div
+                            style={{
+                              position: "absolute",
+                              bottom: "-5px",
+                              right: "-5px",
+                              backgroundColor: isDarkMode ? "#333" : "#fff",
+                              borderRadius: "50%",
+                              padding: "3px",
+                            }}
                           >
-                            <div className="tab">
-                              <div className="icon">
-                                <i className="feather-zap" />
-                              </div>
-                              <div className="content">
-                                <h4 className="title">Online Verification</h4>
-                                <p className="description">
-                                  Use Doob template you can build a corporate
-                                  website a short time.
-                                </p>
-                              </div>
-                            </div>
-                          </a>
-                        </li>;
-                      })}
-                    </ul>
-                  </div>
+                            {profile.Platform === "YouTube" ? (
+                              <FaYoutube color="red" />
+                            ) : (
+                              <FaInstagram
+                                style={{
+                                  color: isDarkMode ? "#ad42ff" : "#c13584",
+                                }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            flex: "1",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                              marginBottom: "1px",
+                            }}
+                          >
+                            {profile.Name}
+                          </span>
+                          <div style={{ fontSize: "1.2rem" }}>
+                            {profile.Followers}
+                            {profile.Platform === "YouTube"
+                              ? " Subscribers"
+                              : " Followers"}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
+                {/* =================== =================== =================== =================== =================== =================== */}
               </div>
               {/* End tab Button  */}
 
@@ -186,7 +251,7 @@ export default function ModernCreatorProfile({ creator }) {
                     role="tabpanel"
                     aria-labelledby="case-tab"
                   >
-                    <div className="col-lg-12" justify-content-center>
+                    <div className="col-lg-12">
                       <Image
                         className="thumbnail"
                         style={{ borderRadius: 10, alignContent: "center" }}
@@ -220,6 +285,8 @@ export default function ModernCreatorProfile({ creator }) {
           </div>
           {/* End tab  */}
 
+          {/* =================== =================== =================== =================== =================== =================== */}
+
           {/* Start tab  */}
           <div
             className="advance-tab-four bg-color-blackest theme-shape mt--40"
@@ -237,6 +304,7 @@ export default function ModernCreatorProfile({ creator }) {
                 </div>
               </div>
               {/* End tab Button  */}
+
               <div className="col-lg-12 col-md-12 col-sm-12 col-12 order-1 order-lg-2">
                 <div
                   className="tab-content11 no-scrollbar responsive-align"
@@ -268,6 +336,8 @@ export default function ModernCreatorProfile({ creator }) {
                           muted={!isUnmuted}
                           autoPlay
                           loop
+                          playsInline
+                          preload="metadata"
                           style={{
                             borderRadius: 15,
                           }}
@@ -438,7 +508,7 @@ export default function ModernCreatorProfile({ creator }) {
                                     target="_blank"
                                     href={`https://api.whatsapp.com/send/?phone=${creator.Phnum}&text=Hey%2C+We+have+a+brand+deal+for+${creator.CreatorName}&type=phone_number&app_absent=0`}
                                   >
-                                    Personal Manager <FaWhatsapp></FaWhatsapp>
+                                    Personal Manager
                                     {/* <i className="feather-arrow-right" /> */}
                                   </a>
                                 </div>

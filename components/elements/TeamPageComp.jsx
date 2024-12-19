@@ -11,7 +11,7 @@ export default function Team() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [allCreatorsLoaded, setAllCreatorsLoaded] = useState(false);
-  const ITEMS_PER_PAGE = 10;
+  const ITEMS_PER_PAGE = 100;
 
   useEffect(() => {
     async function fetchTeamMembers() {
@@ -33,9 +33,9 @@ export default function Team() {
           const imageUrl = imageData.startsWith("http")
             ? imageData
             : "https://cms.dev80.tech" + imageData;
-          const socialLinksArray = (attributes.socialslinks || "")
-            .split(",")
-            .map((link) => link.trim());
+          // const socialLinksArray = (attributes.socialslinks || "")
+          //   .split(",")
+          //   .map((link) => link.trim());
 
           return {
             id: member.id,
@@ -43,7 +43,7 @@ export default function Team() {
             title: attributes.Tagline || "Talented Individual",
             location: attributes.Location || "Unknown",
             imgSrc: imageUrl,
-            socialLinks: socialLinksArray,
+            // socialLinks: socialLinksArray,
             slug: attributes.slug,
           };
         });
@@ -77,7 +77,8 @@ export default function Team() {
 
   const handleScroll = () => {
     if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+      window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - window.innerHeight.offsetHeight &&
       !loading &&
       !allCreatorsLoaded
     ) {
@@ -116,7 +117,7 @@ export default function Team() {
                   className="image"
                 />
                 <div className="card-overlay">
-                  <div className="social-icons">
+                  {/* <div className="social-icons">
                     {member.socialLinks.map((link, index) => (
                       <a
                         key={index}
@@ -131,8 +132,8 @@ export default function Team() {
                         </span>
                       </a>
                     ))}
-                  </div>
-                  <h2 className="title1">{member.name}</h2>
+                  </div> */}
+                  {/* <h2 className="title1">{member.name}</h2> */}
                   {/* <p className="member-title">{member.title}</p> */}
                   {/* <p className="member-location">{member.location}</p> */}
 
@@ -142,7 +143,7 @@ export default function Team() {
                       (window.location.href = `/talents/${member.slug}`)
                     }
                   >
-                    View <i className="feather-arrow-right" />
+                    More Details <i className="feather-arrow-right" />
                   </button>
                 </div>
               </div>
@@ -251,9 +252,9 @@ export default function Team() {
             right: 0;
             background: linear-gradient(
               to top,
-              rgba(22, 33, 62, 0.95) 10%,
-              rgba(22, 33, 62, 0.8) 20%,
-              rgba(22, 33, 62, 0) 70%
+              rgba(0, 0, 0, 0.5) 10%,
+              rgba(0, 0, 0, 0.3) 20%,
+              rgba(0, 0, 0, 0) 70%
             );
             padding: 2rem;
             transform: translateY(100%);

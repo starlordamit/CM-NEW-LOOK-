@@ -84,48 +84,48 @@ export default async function Page({ params }) {
     AudienceStats: [
       {
         title: "13-17 Years",
-        value: attributes.Demographicsage1317,
+        value: attributes.Demographicsage1317 || 35,
         colorClass: "bar-color-1",
       },
       {
         title: "18-24 Years",
-        value: attributes.Demographicsage1824,
+        value: attributes.Demographicsage1824 || 45,
         colorClass: "bar-color-2",
       },
       {
         title: "25-34 Years",
-        value: attributes.Demographicsage2534,
+        value: attributes.Demographicsage2534 || 10,
         colorClass: "bar-color-3",
       },
       {
         title: "35-44 Years",
-        value: attributes.Demographicsage3544,
+        value: attributes.Demographicsage3544 || 9,
         colorClass: "bar-color-4",
       },
       {
         title: "45+ Years",
-        value: attributes.Demographicsage45,
+        value: attributes.Demographicsage45 || 1,
         colorClass: "bar-color-1",
       },
     ],
     GenderDistribution: [
       {
         title: "Male",
-        value: attributes.MaleAudience,
+        value: attributes.MaleAudience || 50,
         colorClass: "bar-color-1",
       },
       {
         title: "Female",
-        value: 100 - attributes.MaleAudience,
+        value: attributes.MaleAudience ? 100 - attributes.MaleAudience : 50,
         colorClass: "bar-color-3",
       },
     ],
 
-    Handel: attributes.Handels,
-    Tags: attributes.Tagline.split(","),
-    Phnum: attributes.TalentManagerNumber,
+    Handel: attributes.Handels || [],
+    Tags: attributes.Tagline?.split(",") || [],
+    Phnum: attributes.TalentManagerNumber || "919410464303",
   };
-  console.log(transformedCreator);
+  // console.log(transformedCreator);
   return (
     <>
       <Header4 />
