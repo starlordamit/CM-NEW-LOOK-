@@ -1,9 +1,12 @@
 import Header4 from "@/components/headers/Header4";
 import Footer3 from "@/components/footers/Footer3";
 import ModernCreatorProfile from "./ModernCreatorProfile"; // Client component
+import { red } from "@mui/material/colors";
+import { redirect } from "next/navigation";
 
 async function getCreatorData(slug) {
   // console.log("Fetching data for slug:", slug);
+
   const res = await fetch(
     `https://cms.dev80.tech/api/talent-descriptions?filters[slug][$eq]=${slug}&populate[1]=Handels.ProfileImage&populate=images&populate=BrandsCollabs`,
     { cache: "no-store" }
@@ -25,9 +28,8 @@ export async function generateMetadata({ params }) {
   const creator = await getCreatorData(slug);
 
   if (!creator) {
-    return {
-      title: "Creator not found",
-    };
+    //redirect to talents page
+    redirect("/talents");
   }
 
   return {

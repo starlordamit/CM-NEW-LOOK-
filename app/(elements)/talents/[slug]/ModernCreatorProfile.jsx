@@ -3,13 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import {
-  FaInstagram,
-  FaFacebook,
-  FaYoutube,
-  FaTwitter,
-  FaLink,
-} from "react-icons/fa";
+import PlatformIcon from "./SvgIcons";
+
 import ProgressLine from "@/components/common/ProgressLine";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -54,31 +49,42 @@ export default function ModernCreatorProfile({ creator }) {
                 </div>
                 {/* Creators Cards */}
                 {/* src/components/CreatorCards.jsx line 1 */}
+                {/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
+                {/* // src/components/CreatorCards.jsx line 1 */}
                 <div
                   style={{
                     display: "flex",
                     flexWrap: "wrap",
-                    gap: "10px",
-                    padding: "10px",
+                    gap: "20px",
+                    padding: "20px",
+                    // justifyContent: "center",
+                    // backgroundColor: isDarkMode ? "white" : "white",
+                    transition: "background-color 0.3s ease",
                   }}
                 >
                   {HH1.map((profile, index) => (
                     <div
                       key={index}
                       style={{
-                        width: "250px",
-                        borderRadius: "10px",
-                        boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                        width: "240px",
+                        borderRadius: "12px",
+                        // backgroundColor: isDarkMode ? "#2a2a2a" : "#fff",
+                        // boxShadow: isDarkMode
+                        //   ? "0 0 10px rgba(0,0,0,0.5)"
+                        //   : "0 2px 8px rgba(0,0,0,0.1)",
                         display: "flex",
                         alignItems: "center",
-                        backgroundColor: isDarkMode
-                          ? "rgba(40,40,40,0.8)"
-                          : "rgba(255,255,255,0.7)",
-                        padding: "10px",
-                        gap: "10px",
+                        padding: "12px",
                         position: "relative",
-                        color: isDarkMode ? "#ddd" : "#333",
+                        transition:
+                          "transform 0.3s ease, background-color 0.3s ease",
                       }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.transform = "translateY(-5px)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.transform = "translateY(0)")
+                      }
                     >
                       <div style={{ position: "relative" }}>
                         <img
@@ -90,10 +96,8 @@ export default function ModernCreatorProfile({ creator }) {
                             width: "60px",
                             height: "60px",
                             borderRadius: "50%",
-                            border: isDarkMode
-                              ? "2px solid #444"
-                              : "2px solid #fff",
                             objectFit: "cover",
+                            border: "2px solid #fff gradient",
                           }}
                         />
                         <div
@@ -101,39 +105,38 @@ export default function ModernCreatorProfile({ creator }) {
                             position: "absolute",
                             bottom: "-5px",
                             right: "-5px",
-                            backgroundColor: isDarkMode ? "#333" : "#fff",
                             borderRadius: "50%",
-                            padding: "3px",
+                            // background: isDarkMode ? "#333" : "#fff",
+                            // padding: "5px",
                           }}
                         >
-                          {profile.Platform === "YouTube" ? (
-                            <FaYoutube color="red" />
-                          ) : (
-                            <FaInstagram
-                              style={{
-                                color: isDarkMode ? "#ad42ff" : "#c13584",
-                              }}
-                            />
-                          )}
+                          <PlatformIcon platform={profile.Platform} />
                         </div>
                       </div>
                       <div
                         style={{
-                          flex: "1",
+                          flex: 1,
                           display: "flex",
                           flexDirection: "column",
+                          marginLeft: "10px",
                         }}
                       >
                         <span
                           style={{
-                            fontWeight: "bold",
-                            fontSize: "1.5rem",
-                            marginBottom: "1px",
+                            fontWeight: "600",
+                            fontSize: "1.2rem",
+                            color: isDarkMode ? "#ddd" : "#333",
+                            marginBottom: "2px",
                           }}
                         >
                           {profile.Name}
                         </span>
-                        <div style={{ fontSize: "1.2rem" }}>
+                        <div
+                          style={{
+                            fontSize: "0.95rem",
+                            color: isDarkMode ? "#bbb" : "#555",
+                          }}
+                        >
                           {profile.Followers}
                           {profile.Platform === "YouTube"
                             ? " Subscribers"
@@ -143,6 +146,7 @@ export default function ModernCreatorProfile({ creator }) {
                     </div>
                   ))}
                 </div>
+                {/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
               </div>
               <div className="col-lg-4 col-md-12 col-sm-12 col-12 order-1 order-lg-2">
                 <div className="tab-content">
@@ -195,6 +199,8 @@ export default function ModernCreatorProfile({ creator }) {
                       <div
                         key={index}
                         style={{
+                          gap: "10px",
+                          marginRight: "10px",
                           display: "inline-block",
                           position: "relative",
                         }}

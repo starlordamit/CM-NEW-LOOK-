@@ -5,9 +5,9 @@ import Topbar from "@/components/headers/Topbar";
 import React from "react";
 
 export const metadata = {
-  title:
-    "Team || Doob Business and Consulting React Nextjs Bootstrap5 Template",
-  description: "Doob Business and Consulting React Nextjs Bootstrap5 Template",
+  title: "Creator's Squad",
+  description:
+    "Creators Mela is a platform for creators to showcase their talent and connect with brands for collaborations.",
 };
 export default function page() {
   return (
