@@ -56,7 +56,7 @@ export default function Header4({
                 </div>
               </div>
               {/* Start Mobile-Menu-Bar */}
-              <ModeSwitcher />
+              {/* <ModeSwitcher /> */}
             </div>
           </div>
         </div>

@@ -73,6 +73,7 @@ export default function Pricing() {
         </div>
       </div>
       {/* End Seperator Area  */}
+
       {/* Start Pricing Style-2  */}
       <div className="rainbow-pricing-area rainbow-section-gap">
         <div className="container">

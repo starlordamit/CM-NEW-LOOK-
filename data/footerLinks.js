@@ -1,6 +1,6 @@
 export const socialLinks = [
-  // { href: "https://www.facebook.com/", iconClass: "feather-facebook" },
-  // { href: "https://www.twitter.com", iconClass: "feather-twitter" },
+  { href: "https://youtube.com/@creatorsmela", iconClass: "feather-youtube" },
+  { href: "https://x.com/creatorsmela?s=21", iconClass: "feather-twitter" },
   {
     href: "https://www.instagram.com/creatorsmela",
     iconClass: "feather-instagram",
@@ -53,6 +53,7 @@ export const footerSections = [
       { href: "/service", label: "Service" },
     ],
   },
+
   {
     title: "Company",
     links: [

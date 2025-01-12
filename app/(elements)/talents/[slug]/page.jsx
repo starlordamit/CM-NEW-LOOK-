@@ -3,12 +3,13 @@ import Footer3 from "@/components/footers/Footer3";
 import ModernCreatorProfile from "./ModernCreatorProfile"; // Client component
 import { red } from "@mui/material/colors";
 import { redirect } from "next/navigation";
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// ${API_URL}
 async function getCreatorData(slug) {
   // console.log("Fetching data for slug:", slug);
 
   const res = await fetch(
-    `https://cms.dev80.tech/api/talent-descriptions?filters[slug][$eq]=${slug}&populate[1]=Handels.ProfileImage&populate=images&populate=BrandsCollabs`,
+    `${API_URL}/talent-descriptions?filters[slug][$eq]=${slug}&populate[1]=Handels.ProfileImage&populate=images&populate=BrandsCollabs&populate[2]=Demographics`,
     { cache: "no-store" }
   );
   // console.log("Response status:", res.status);
@@ -65,6 +66,7 @@ export default async function Page({ params }) {
   // If your API doesn't return Photos, Videos, etc., you must adapt this part.
   // Here we’re assuming the API returns these arrays, or we fall back to placeholders.
   const attributes = creator;
+  console.log(attributes.Demographics[0].Demographicsage1317);
 
   const transformedCreator = {
     CreatorName: attributes.CreatorName,
@@ -86,39 +88,41 @@ export default async function Page({ params }) {
     AudienceStats: [
       {
         title: "13-17 Years",
-        value: attributes.Demographicsage1317 || 35,
+        value: attributes.Demographics[0].Demographicsage1317 || 10,
         colorClass: "bar-color-1",
       },
       {
         title: "18-24 Years",
-        value: attributes.Demographicsage1824 || 45,
+        value: attributes.Demographics[0].Demographicsage1824 || 10,
         colorClass: "bar-color-2",
       },
       {
         title: "25-34 Years",
-        value: attributes.Demographicsage2534 || 10,
+        value: attributes.Demographics[0].Demographicsage2534 || 10,
         colorClass: "bar-color-3",
       },
       {
         title: "35-44 Years",
-        value: attributes.Demographicsage3544 || 9,
+        value: attributes.Demographics[0].Demographicsage3544 || 10,
         colorClass: "bar-color-4",
       },
       {
         title: "45+ Years",
-        value: attributes.Demographicsage45 || 1,
+        value: attributes.Demographics[0].Demographicsage45 || 10,
         colorClass: "bar-color-1",
       },
     ],
     GenderDistribution: [
       {
         title: "Male",
-        value: attributes.MaleAudience || 50,
+        value: Math.round(attributes.Demographics[0].MaleAudience) || 10,
         colorClass: "bar-color-1",
       },
       {
         title: "Female",
-        value: attributes.MaleAudience ? 100 - attributes.MaleAudience : 50,
+        value: attributes.Demographics[0].MaleAudience
+          ? Math.round(100 - attributes.Demographics[0].MaleAudience)
+          : 90,
         colorClass: "bar-color-3",
       },
     ],

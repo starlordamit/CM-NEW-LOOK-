@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import PlatformIcon from "./SvgIcons";
+// import { FaArrowRight } from "react-icons/fa";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 import ProgressLine from "@/components/common/ProgressLine";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -12,8 +14,14 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default function ModernCreatorProfile({ creator }) {
   const [activeTab, setActiveTab] = useState("about");
   const [isDarkMode, setIsDarkMode] = useState(true);
+  function formatNumber(num) {
+    if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + "B";
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+    if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
+    return num.toString();
+  }
   const imageUrl = creator.images?.[0]?.formats?.large?.url
-    ? `https://cms.dev80.tech/${creator.images[0].formats.large.url}`
+    ? ` ${API_URL.replace("/api", "")}${creator.images[0].formats.large.url}`
     : "/uploads/default_avatar_photo_placeholder_profile_icon_vector_d60b794566.jpg";
   const HH1 = creator.Handel || [];
   const ageGroups = creator.AudienceStats || [];
@@ -23,17 +31,9 @@ export default function ModernCreatorProfile({ creator }) {
 
   return (
     <>
-      <div className="rainbow-advance-tab-area rainbow-section-gap">
+      <div className="rainbow-advance-tab-area rainbow-section mt--40">
+        {" "}
         <div className="container">
-          <div className="row mb--40">
-            <div className="col-lg-12">
-              <div className="section-title text-center sal-animate">
-                <h4 className="subtitle">
-                  <span className="theme-gradient">Exclusive Talent</span>
-                </h4>
-              </div>
-            </div>
-          </div>
           <div
             className="advance-tab-four bg-color-blackest theme-shape"
             data-tabs="true"
@@ -42,10 +42,18 @@ export default function ModernCreatorProfile({ creator }) {
               <div className="col-lg-8 col-md-12 col-sm-12 col-12 mt_md--30 mt_sm--30 d-flex flex-column justify-content-between order-2 order-lg-1">
                 <div className="advance-tab-top">
                   <h5 className="subtitle">
-                    <span className="theme-gradient">Overview</span>
+                    <span className="theme-gradient ">Exclusive Talent</span>
                   </h5>
                   <h3 className="title">{creator.CreatorName}</h3>
-                  <ReactMarkdown>{creator.Description}</ReactMarkdown>
+                  {/* //justified text */}
+                  <div
+                    className="content1"
+                    style={{
+                      textAlign: "justify",
+                    }}
+                  >
+                    <ReactMarkdown>{creator.Description}</ReactMarkdown>
+                  </div>
                 </div>
                 {/* Creators Cards */}
                 {/* src/components/CreatorCards.jsx line 1 */}
@@ -63,87 +71,104 @@ export default function ModernCreatorProfile({ creator }) {
                   }}
                 >
                   {HH1.map((profile, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: "240px",
-                        borderRadius: "12px",
-                        // backgroundColor: isDarkMode ? "#2a2a2a" : "#fff",
-                        // boxShadow: isDarkMode
-                        //   ? "0 0 10px rgba(0,0,0,0.5)"
-                        //   : "0 2px 8px rgba(0,0,0,0.1)",
-                        display: "flex",
-                        alignItems: "center",
-                        padding: "12px",
-                        position: "relative",
-                        transition:
-                          "transform 0.3s ease, background-color 0.3s ease",
-                      }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.transform = "translateY(-5px)")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.transform = "translateY(0)")
-                      }
-                    >
-                      <div style={{ position: "relative" }}>
-                        <img
-                          src={
-                            "https://cms.dev80.tech" + profile.ProfileImage.url
-                          }
-                          alt={profile.handle}
-                          style={{
-                            width: "60px",
-                            height: "60px",
-                            borderRadius: "50%",
-                            objectFit: "cover",
-                            border: "2px solid #fff gradient",
-                          }}
-                        />
-                        <div
-                          style={{
-                            position: "absolute",
-                            bottom: "-5px",
-                            right: "-5px",
-                            borderRadius: "50%",
-                            // background: isDarkMode ? "#333" : "#fff",
-                            // padding: "5px",
-                          }}
-                        >
-                          <PlatformIcon platform={profile.Platform} />
-                        </div>
-                      </div>
+                    <>
                       <div
+                        key={index}
                         style={{
-                          flex: 1,
+                          width: "240px",
+                          borderRadius: "12px",
+                          // backgroundColor: isDarkMode ? "#2a2a2a" : "#fff",
+                          // boxShadow: isDarkMode
+                          //   ? "0 0 10px rgba(0,0,0,0.5)"
+                          //   : "0 2px 8px rgba(0,0,0,0.1)",
                           display: "flex",
-                          flexDirection: "column",
-                          marginLeft: "10px",
+                          alignItems: "center",
+                          padding: "12px",
+                          position: "relative",
+                          transition:
+                            "transform 0.3s ease, background-color 0.3s ease",
                         }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.transform = "translateY(-5px)")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.transform = "translateY(0)")
+                        }
                       >
-                        <span
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "1.2rem",
-                            color: isDarkMode ? "#ddd" : "#333",
-                            marginBottom: "2px",
-                          }}
-                        >
-                          {profile.Name}
-                        </span>
+                        <div style={{ position: "relative" }}>
+                          <img
+                            src={
+                              `${API_URL.replace("/api", "")}` +
+                              profile.ProfileImage.url
+                            }
+                            alt={profile.handle}
+                            style={{
+                              width: "60px",
+                              height: "60px",
+                              borderRadius: "50%",
+                              objectFit: "cover",
+                              border: "2px solid #fff gradient",
+                            }}
+                          />
+
+                          <div
+                            style={{
+                              position: "absolute",
+                              bottom: "-5px",
+                              right: "-5px",
+                              borderRadius: "50%",
+                              // background: isDarkMode ? "#333" : "#fff",
+                              // padding: "5px",
+                            }}
+                          >
+                            <PlatformIcon platform={profile.Platform} />
+                          </div>
+                        </div>
+                        {/* <FaArrowRight
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      /> */}
                         <div
                           style={{
-                            fontSize: "0.95rem",
-                            color: isDarkMode ? "#bbb" : "#555",
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            marginLeft: "10px",
                           }}
                         >
-                          {profile.Followers}
-                          {profile.Platform === "YouTube"
-                            ? " Subscribers"
-                            : " Followers"}
+                          <a href={profile.URL} target="_blank">
+                            <span
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "1.7rem",
+
+                                marginBottom: "2px",
+                              }}
+                            >
+                              {profile.Name} 🔗
+                            </span>
+                          </a>
+                          <div
+                            style={{
+                              fontSize: "1.4rem",
+                            }}
+                          >
+                            {formatNumber(profile.Followers)}+
+                            {profile.Platform === "YouTube"
+                              ? " Subscribers"
+                              : " Followers"}
+                          </div>
+                          {/* <div
+                            style={{
+                              fontSize: "1.4rem",
+                            }}
+                          >
+                            {profile.Catagory}
+                          </div> */}
                         </div>
                       </div>
-                    </div>
+                    </>
                   ))}
                 </div>
                 {/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
@@ -177,9 +202,17 @@ export default function ModernCreatorProfile({ creator }) {
             data-tabs="true"
           >
             <div className="row row--30 gy-5">
-              <h5 className="Title responsive-align">
-                <span className="theme-gradient"> Top Brand Collabs</span>
-              </h5>
+              <h4
+                className="subtitle responsive-align "
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontFamily: "sans-serif",
+                }}
+              >
+                <span className="theme-gradient"> Recent Brand Collabs</span>
+              </h4>
               <div className="col-lg-12 col-md-12 col-sm-12 col-12 order-1 order-lg-2">
                 <div
                   className="tab-content11 no-scrollbar responsive-align"
@@ -216,7 +249,9 @@ export default function ModernCreatorProfile({ creator }) {
                           preload="metadata"
                           style={{ borderRadius: 15 }}
                         >
-                          <source src={`https://cms.dev80.tech/${v.url}`} />
+                          <source
+                            src={`${API_URL.replace("/api", "")}${v.url}`}
+                          />
                           Your browser does not support the video tag.
                         </video>
                         <button
@@ -259,6 +294,7 @@ export default function ModernCreatorProfile({ creator }) {
                       justify-content: center;
                     }
                   }
+                   
                 `}
                 </style>
               </div>

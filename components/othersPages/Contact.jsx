@@ -1,52 +1,84 @@
+// file path: /pages/contact.js
 "use client";
 import React, { useRef, useState } from "react";
-
-import emailjs from "@emailjs/browser";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Result = () => {
   return (
     <p className="success-message">
-      Your Message has been successfully sent. I will contact you soon.
+      Your message has been successfully sent. We will contact you soon.
     </p>
   );
 };
+
 export default function Contact() {
-  const [result, showresult] = useState(false);
+  const [result, showResult] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
   const formRef = useRef();
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-    emailjs
-      .sendForm("service_cyobi0y", "template_4nbexqj", formRef.current, {
-        publicKey: "D79JdTqxXVCcQBXL4",
-      })
-      .then(
-        (result) => {
-          showresult(true);
-        },
-        (error) => {
-          console.log(error.text);
+  const handleCaptchaChange = (value) => {
+    if (value) {
+      setCaptchaVerified(true);
+    }
+  };
+
+  const sendFormToStrapi = async (data) => {
+    try {
+      const response = await fetch(
+        "https://cms.creatorsmela.com/api/join-uses",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data }),
         }
       );
 
-    e.target.reset();
+      if (response.ok) {
+        showResult(true);
+        setTimeout(() => showResult(false), 5000);
+      } else {
+        const errorData = await response.json();
+        console.error("Strapi API Error:", errorData);
+        alert("Failed to submit the form. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error submitting form to Strapi:", error);
+      alert("An error occurred. Please try again later.");
+    }
   };
 
-  setTimeout(() => {
-    showresult(false);
-  }, 5000);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!captchaVerified) {
+      alert("Please complete the CAPTCHA verification.");
+      return;
+    }
+
+    const formData = new FormData(formRef.current);
+
+    const formObject = {
+      Name: formData.get("contact-name"),
+      PhoneNumber: formData.get("contact-phone"),
+      Email: formData.get("contact-email"),
+      ProfileLinks: formData.get("subject"),
+      Description: formData.get("contact-message"),
+    };
+
+    sendFormToStrapi(formObject);
+    e.target.reset();
+    setCaptchaVerified(false);
+  };
+
   return (
     <div className="main-content">
       <div className="rainbow-contact-area rainbow-section-gap">
         <div className="container">
           <div className="row">
             <div className="col-lg-12 mb--40">
-              <div
-                className="section-title text-center"
-                data-sal="slide-up"
-                data-sal-duration={700}
-                data-sal-delay={100}
-              >
+              <div className="section-title text-center">
                 <h4 className="subtitle">
                   <span className="theme-gradient">Contact Form</span>
                 </h4>
@@ -57,67 +89,11 @@ export default function Contact() {
             </div>
           </div>
           <div className="row row--15">
-            <div className="col-lg-12">
-              <div className="rainbow-contact-address mt_dec--30">
-                <div className="row">
-                  <div className="col-lg-4 col-md-6 col-12">
-                    <div className="rainbow-address">
-                      <div className="icon">
-                        <i className="feather-headphones" />
-                      </div>
-                      <div className="inner">
-                        <h4 className="title">Contact Phone Number</h4>
-                        <p>
-                          <a href="tel:+444555666777">+444 555 666 777</a>
-                        </p>
-                        <p>
-                          <a href="tel:+222222222333">+222 222 222 333</a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-6 col-12">
-                    <div className="rainbow-address">
-                      <div className="icon">
-                        <i className="feather-mail" />
-                      </div>
-                      <div className="inner">
-                        <h4 className="title">Our Email Address</h4>
-                        <p>
-                          <a href="mailto:admin@gmail.com">admin@gmail.com</a>
-                        </p>
-                        <p>
-                          <a href="mailto:example@gmail.com">
-                            example@gmail.com
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-md-6 col-12">
-                    <div className="rainbow-address">
-                      <div className="icon">
-                        <i className="feather-map-pin" />
-                      </div>
-                      <div className="inner">
-                        <h4 className="title">Our Location</h4>
-                        <p>
-                          5678 Bangla Main Road, cities 580 <br />
-                          GBnagla, example 54786
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row mt--40 row--15">
             <div className="col-lg-7">
               <form
                 ref={formRef}
                 className="contact-form-1 rainbow-dynamic-form"
-                onSubmit={sendEmail}
+                onSubmit={handleSubmit}
               >
                 <div className="form-group">
                   <input
@@ -161,7 +137,12 @@ export default function Contact() {
                     id="contact-message"
                     placeholder="Your Message"
                     required
-                    defaultValue={""}
+                  />
+                </div>
+                <div className="form-group">
+                  <ReCAPTCHA
+                    sitekey="6LfX9bAqAAAAACWHBZIKJhZdQk5cqNe0j4QDmqOW"
+                    onChange={handleCaptchaChange}
                   />
                 </div>
                 <div className="form-group">
@@ -180,13 +161,13 @@ export default function Contact() {
             <div className="col-lg-5 mt_md--30 mt_sm--30">
               <div className="google-map-style-1">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14554259.179133086!2d-105.54385245388013!3d37.49334218664659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2sbd!4v1630777307491!5m2!1sen!2sbd"
-                  width={600}
-                  height={550}
-                  style={{ border: 0 }}
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16318479.620454589!2d72.1025874717887!3d20.73620678619067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e1!3m2!1sen!2sin!4v1736277285797!5m2!1sen!2sin"
+                  width="600"
+                  height="450"
                   allowFullScreen=""
                   loading="lazy"
-                />
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </div>
           </div>

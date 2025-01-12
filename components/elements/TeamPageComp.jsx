@@ -1,11 +1,11 @@
+// file: app/components/Team/Team.tsx line:1
 "use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaYoutube, FaInstagram, FaTwitter, FaFacebook } from "react-icons/fa";
-import CounterComponent from "../common/Counter";
-import { countersData, countersData2 } from "@/data/facts";
-
+import { FaArrowRight } from "react-icons/fa";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// ${API_URL}
 export default function Team() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,13 +15,9 @@ export default function Team() {
   const ITEMS_PER_PAGE = 10;
 
   function formatNumber(num) {
-    if (num >= 1_000_000_000) {
-      return (num / 1_000_000_000).toFixed(1) + "B";
-    } else if (num >= 1_000_000) {
-      return (num / 1_000_000).toFixed(1) + "M";
-    } else if (num >= 1_000) {
-      return (num / 1_000).toFixed(1) + "K";
-    }
+    if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + "B";
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+    if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
     return num.toString();
   }
 
@@ -30,34 +26,34 @@ export default function Team() {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://cms.dev80.tech/api/talent-descriptions?pagination[pageSize]=${ITEMS_PER_PAGE}&pagination[page]=${currentPage}&populate[0]=Handels.Followers&populate=images`,
+          `${API_URL}/talent-descriptions?pagination[pageSize]=${ITEMS_PER_PAGE}&pagination[page]=${currentPage}&populate[0]=Handels.Followers&populate=images`,
           { cache: "no-store" }
         );
         const json = await response.json();
-        const data = json.data || [];
         setTotalPages(json.meta.pagination.pageCount);
 
-        const fetchedMembers = data.map((member) => {
-          const attributes = member || {};
+        const fetchedMembers = (json.data || []).map((member) => {
           const imageData =
-            attributes.images?.[0]?.formats?.large?.url ||
+            member?.images?.[0]?.formats?.large?.url ||
             "/uploads/default_avatar_photo_placeholder_profile_icon_vector_d60b794566.jpg";
           const imageUrl = imageData.startsWith("http")
             ? imageData
-            : "https://cms.dev80.tech" + imageData;
+            : `${API_URL.replace("/api", "")}${imageData}`;
+
+          const titleString = member.Tagline || "";
+          const categories = titleString ? titleString.split(",") : [];
 
           return {
             id: member.id,
-            name: attributes.CreatorName || "Team Member",
-            title: attributes.Tagline || "Talented Individual",
-            location: attributes.Location || "Unknown",
+            name: member.CreatorName || "Team Member",
+            categories,
+            location: member.Location || "Unknown",
             imgSrc: imageUrl,
-            slug: attributes.slug,
+            slug: member.slug,
             Reach: formatNumber(
-              attributes.Handels.map((h) => h.Followers).reduce(
-                (acc, curr) => acc + parseInt(curr, 10),
-                100000
-              )
+              (member.Handels || [])
+                .map((h) => h.Followers)
+                .reduce((acc, curr) => acc + parseInt(curr, 10), 100000)
             ),
           };
         });
@@ -70,8 +66,9 @@ export default function Team() {
           ];
         });
 
-        if (currentPage >= json.meta.pagination.pageCount)
+        if (currentPage >= json.meta.pagination.pageCount) {
           setAllCreatorsLoaded(true);
+        }
       } catch (error) {
         console.error("Error fetching team members:", error);
       } finally {
@@ -110,6 +107,7 @@ export default function Team() {
           </h4>
           <h2 className="title w-600 mb--20">Our Exclusive Talents</h2>
         </div>
+
         <div className="card-container">
           {teamMembers.map((member) => (
             <div
@@ -117,7 +115,11 @@ export default function Team() {
               className="card"
               onClick={() => (window.location.href = `/talents/${member.slug}`)}
             >
+              <div className="card-redirect-icon">
+                <FaArrowRight />
+              </div>
               <div className="card-image">
+                <div className="reach-badge">{member.Reach}+ Reach</div>
                 <Image
                   alt={member.name}
                   src={member.imgSrc}
@@ -126,35 +128,15 @@ export default function Team() {
                   className="image"
                 />
                 <div className="card-overlay always-visible">
-                  {/* <h2 className="title1 reach-text">Reach: {member.Reach}+</h2> */}
-                  <p className="member-title">{member.title}</p>
-                  {/* <button className="btn-default btn-icon">
-                    Reach: {member.Reach}+
-                    <i className="feather-arrow-right" />
-                  </button> */}
+                  {member.categories.map((cat, index) => (
+                    <span key={index} className="category-item">
+                      {cat.trim()}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
           ))}
-
-          {/* Extra Card */}
-          <div
-            className="card extra-card bg-color-blackest theme-shape"
-            onClick={() => alert("Redirect to Join Page")}
-          >
-            <div className="">
-              <div className="card-overlay always-visible center-content">
-                <h2 className="title1">Want To Join Club?</h2>
-                <p className="">
-                  Become part of our exclusive creators community.
-                </p>
-                <button className="btn-default btn-icon">
-                  Join Us Now
-                  <i className="feather-arrow-right" />
-                </button>
-              </div>
-            </div>
-          </div>
 
           {loading &&
             Array.from({ length: ITEMS_PER_PAGE }).map((_, idx) => (
@@ -163,8 +145,27 @@ export default function Team() {
                 <div className="skeleton-text"></div>
               </div>
             ))}
+
+          {!loading && (
+            <div className="card extra-card bg-color-blackest theme-shape">
+              <div className="card-overlay center-content">
+                <p className="title  ">
+                  Become part of our exclusive creators community.
+                </p>
+                <button
+                  className="btn-default btn-icon"
+                  onClick={() => alert("Redirect to Join Page")}
+                >
+                  Apply Here
+                  <i className="feather-arrow-right" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
+      {loading && <></>}
 
       <style jsx>{`
         @keyframes fadeIn {
@@ -177,17 +178,6 @@ export default function Team() {
             transform: translateY(0);
           }
         }
-
-        @keyframes pulse {
-          0%,
-          100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-        }
-
         @keyframes gradientFlow {
           0% {
             background-position: 0% 50%;
@@ -199,137 +189,119 @@ export default function Team() {
             background-position: 0% 50%;
           }
         }
-
         .main-content {
           padding: 4rem 2rem;
           min-height: 100vh;
         }
-
-        .title1 {
-          font-size: 2rem;
-        }
-
-        .highlight {
-          background: linear-gradient(45deg, #9d4edd, #c77dff, #e0aaff);
-          background-size: 200% 200%;
-          animation: gradientFlow 3s ease infinite;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          color: transparent;
-        }
-
         .card-container {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
           gap: 2.5rem;
           justify-content: center;
         }
-
         .card {
-          border-radius: 25px;
+          border-radius: 35px;
           overflow: hidden;
           transition: all 0.4s ease;
           cursor: pointer;
           position: relative;
           aspect-ratio: 9 / 16;
           animation: fadeIn 0.6s ease-out;
+          background: #16213e;
         }
-
         .card:hover {
           transform: translateY(-10px) scale(1.01);
-          border: 10px solid rgb(255, 255, 255);
+          border: 2px solid #fff;
           border-radius: 35px;
         }
-
+        .card.extra-card:hover {
+          transform: none;
+          border: none;
+        }
         .card-image {
           position: relative;
           width: 100%;
           height: 100%;
         }
-
         .image {
           transition: transform 0.4s ease;
           z-index: 1;
         }
-
         .card:hover .image {
           transform: scale(1.1);
         }
-
         .card-overlay {
           position: absolute;
           bottom: 0;
           left: 0;
           right: 0;
-
-          padding: 2rem;
+          padding: 1rem;
           display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          height: 100%;
+          flex-wrap: wrap;
+          align-items: flex-end;
+          gap: 0.5rem;
           z-index: 2;
+          height: auto;
           transition: transform 0.4s ease;
         }
-
-        /* For overlays that should always be visible above the image */
-        .always-visible {
-          transform: translateY(0) !important;
-        }
-
-        .reach-text {
-          margin: 0 0 0.5rem;
-          color: #fff;
-        }
-
-        .card.extra-card .card-image {
-        }
-
         .center-content {
+          flex-direction: column;
           justify-content: center;
           align-items: center;
           text-align: center;
+          bottom: 0;
+          top: 0;
         }
-
-        .light-text {
-          color: #f0f0f0;
-          margin-bottom: 1.5rem;
+        .always-visible {
+          transform: translateY(0) !important;
         }
-
-        .light-btn {
-          background: #fff;
-          color: #9d4edd;
+        .category-item {
+          border: 1px solid #fff;
+          background: transparent;
+          color: #fff;
+          padding: 0.3rem 0.7rem;
+          border-radius: 9px;
+          font-size: 1rem;
+          font-weight: 500;
         }
-
-        .member-title {
+        .card-redirect-icon {
+          position: absolute;
+          top: 0.8rem;
+          right: 0.8rem;
+          font-size: 1.5rem;
+          color: #fff;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: 3;
+        }
+        .card:hover .card-redirect-icon {
+          opacity: 1;
+        }
+        .card.extra-card .card-redirect-icon {
+          display: none;
+        }
+        .reach-badge {
+          position: absolute;
+          top: 0.6rem;
+          left: 0.6rem;
+          background: transparent;
+          color: #fff;
+          padding: 0.4rem 0.8rem;
+          border-radius: 10px;
           font-size: 1.4rem;
           font-weight: 600;
-          opacity: 0.9;
-          margin: 0 0 1rem;
+          z-index: 4;
+        }
+        .subtitle {
+          margin-bottom: 1rem;
+          line-height: 1.5;
           color: #fff;
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+          opacity: 0.9;
+          text-align: center;
         }
-
-        .btn-default.btn-small.view-more-btn {
-          background: #fff;
-          color: #000;
-          border: none;
-          padding: 0.5rem 1rem;
-          border-radius: 25px;
-          font-weight: 700;
-          font-size: 1.1rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          letter-spacing: 1px;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-
         .skeleton {
           background: #16213e;
         }
-
         .skeleton-image {
           width: 100%;
           height: 100%;
@@ -342,7 +314,6 @@ export default function Team() {
           background-size: 200% 100%;
           animation: shimmer 1.5s infinite;
         }
-
         .skeleton-text {
           height: 20px;
           margin: 10px;
@@ -355,7 +326,6 @@ export default function Team() {
           background-size: 200% 100%;
           animation: shimmer 1.5s infinite;
         }
-
         @keyframes shimmer {
           0% {
             background-position: 200% 0;
@@ -365,30 +335,36 @@ export default function Team() {
           }
         }
 
+        /* Loading overlay */
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.7);
+          z-index: 9999;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .spinner {
+          width: 50px;
+          height: 50px;
+          border: 6px solid #b5b5b5;
+          border-top-color: #ffffff;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
         @media (max-width: 768px) {
-          .title {
-            font-size: 3rem;
-          }
-
-          .card-container {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-          }
-
-          .name {
-            font-size: 1.8rem;
-          }
-
-          .member-title {
-            font-size: 1.2rem;
-          }
-
-          .social-icon {
-            font-size: 1.4rem;
-          }
-
-          .view-profile-btn {
-            font-size: 1rem;
-            padding: 0.8rem 1.2rem;
+          .card-redirect-icon {
+            opacity: 1;
           }
         }
       `}</style>

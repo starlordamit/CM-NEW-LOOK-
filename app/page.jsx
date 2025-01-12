@@ -5,7 +5,6 @@ import Topbar2 from "@/components/headers/Topbar2";
 import Brands from "@/components/homes/index-marketing-agency/Brands";
 import Features from "@/components/homes/index-marketing-agency/Features";
 import Hero from "@/components/homes/index-marketing-agency/Hero";
-
 import Service from "@/components/homes/index-marketing-agency/Service";
 import React from "react";
 
@@ -13,8 +12,10 @@ import Team from "@/components/elements/TeamHome";
 
 export const metadata = {
   title: "CreatorsMela",
-  description: "Doob Business and Consulting React Nextjs Bootstrap5 Template",
+  description:
+    "India's Top Leading Influencer Marketing and Talent Management Agency",
 };
+
 export default function page() {
   return (
     <>
