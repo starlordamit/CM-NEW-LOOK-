@@ -5,8 +5,14 @@ import React from "react";
 export default function PrivacyPolicy() {
   return (
     <div className="privacy-policy-section">
+      <div className="rainbow-gradient-circle" />
+      <div className="rainbow-gradient-circle theme-pink" />
+
       <div className="container">
+        <div className="rbt-separator-mid" />
+
         <h2>Privacy Policy</h2>
+        {/* <p>Last updated: 1st June 2021</p> */}
         <p>
           Creators Mela (“Creators Mela” or “Company” or “We” or “Our” or “Us”),
           including its affiliates, respects your privacy and is committed to

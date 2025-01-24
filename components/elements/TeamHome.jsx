@@ -15,6 +15,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function Team() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
+
   function formatNumber(num) {
     if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + "B";
     if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
@@ -44,13 +45,7 @@ export default function Team() {
           const socialLinksArray = (member.socialslinks || "")
             .split(",")
             .map((link) => link.trim());
-          // console.log(
-          //   formatNumber(
-          //     (member.Handels || [])
-          //       .map((h) => h.Followers)
-          //       .reduce((acc, curr) => acc + parseInt(curr, 10), 100000)
-          //   ) || "100K"
-          // );
+
           return {
             id: member.id,
             name: member.CreatorName || "Team Member",
@@ -158,7 +153,7 @@ export default function Team() {
       <style jsx>{`
         .main-content {
           padding: 4rem 2rem;
-          // min-height: 100vh;
+          /* min-height: 100vh; */
         }
         .section-title {
           margin-bottom: 2rem;
@@ -175,10 +170,27 @@ export default function Team() {
         .card-container {
           display: flex;
           gap: 2.5rem;
-          // overflow-x: auto;
+          overflow-x: auto;
+          overflow-y: visible; /* Allow vertical overflow */
           scroll-snap-type: x mandatory;
+
           padding-bottom: 1rem;
+          position: relative;
         }
+
+        .card-container::-webkit-scrollbar {
+          height: 8px; /* Adjust the height of the scrollbar */
+        }
+
+        .card-container::-webkit-scrollbar-thumb {
+          background: #444; /* Scrollbar thumb color */
+          border-radius: 8px; /* Rounded scrollbar thumb */
+        }
+
+        .card-container::-webkit-scrollbar-thumb:hover {
+          background: #666; /* Hover effect for scrollbar thumb */
+        }
+
         .no-scrollbar {
           scrollbar-width: none;
         }
@@ -192,20 +204,22 @@ export default function Team() {
           aspect-ratio: 9 / 16;
           border-radius: 35px;
           overflow: hidden;
-          transition: all 0.4s ease;
+          transition: transform 0.4s ease, border 0.4s ease;
           cursor: pointer;
           position: relative;
           background: #16213e;
           scroll-snap-align: start;
+          z-index: 1; /* Default z-index */
         }
         .card:hover {
-          transform: translateY(-10px) scale(1.01);
+          // transform: translateY(-10px) scale(1.05); /* Slightly larger scale */
           border: 2px solid #fff;
-          border-radius: 35px;
+          z-index: 10; /* Bring hovered card to the front */
         }
         .card.extra-card:hover {
           transform: none;
           border: none;
+          z-index: 1;
         }
         .card-image {
           position: relative;
@@ -273,7 +287,7 @@ export default function Team() {
           position: absolute;
           top: 0.6rem;
           left: 0.6rem;
-          background: transparent;
+          // background: rgba(0, 0, 0, 0.6);
           color: #fff;
           padding: 0.4rem 0.8rem;
           border-radius: 10px;
@@ -314,6 +328,23 @@ export default function Team() {
           }
           100% {
             background-position: -200% 0;
+          }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+          .card {
+            width: 250px;
+            aspect-ratio: 9 / 16;
+          }
+          .card-container {
+            gap: 1.5rem;
+          }
+        }
+
+        @media (min-width: 769px) {
+          .card-container {
+            gap: 2.5rem;
           }
         }
       `}</style>

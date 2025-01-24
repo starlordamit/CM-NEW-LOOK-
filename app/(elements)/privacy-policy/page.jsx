@@ -12,7 +12,7 @@ export const metadata = {
 export default function page() {
   return (
     <>
-      <Topbar />
+      {/* <Topbar /> */}
       <Header4 />
       <div>
         <div className="rainbow-gradient-circle" />
