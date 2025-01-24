@@ -146,7 +146,7 @@ export default function Team() {
               </div>
             ))}
 
-          {!loading && (
+          {/* {!loading && (
             <div className="card extra-card bg-color-blackest theme-shape">
               <div className="card-overlay center-content">
                 <p className="title  ">
@@ -161,7 +161,7 @@ export default function Team() {
                 </button>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
 
