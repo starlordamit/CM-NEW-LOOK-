@@ -1,4 +1,4 @@
-// file path: /pages/contact.js
+// File path: /pages/contact.js
 "use client";
 import React, { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -14,38 +14,12 @@ const Result = () => {
 export default function Contact() {
   const [result, showResult] = useState(false);
   const [captchaVerified, setCaptchaVerified] = useState(false);
+  const captchaRef = useRef(null); // reCAPTCHA reference
   const formRef = useRef();
 
   const handleCaptchaChange = (value) => {
     if (value) {
       setCaptchaVerified(true);
-    }
-  };
-
-  const sendFormToStrapi = async (data) => {
-    try {
-      const response = await fetch(
-        "https://cms.creatorsmela.com/api/join-uses",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ data }),
-        }
-      );
-
-      if (response.ok) {
-        showResult(true);
-        setTimeout(() => showResult(false), 5000);
-      } else {
-        const errorData = await response.json();
-        console.error("Strapi API Error:", errorData);
-        alert("Failed to submit the form. Please try again later.");
-      }
-    } catch (error) {
-      console.error("Error submitting form to Strapi:", error);
-      alert("An error occurred. Please try again later.");
     }
   };
 
@@ -57,18 +31,24 @@ export default function Contact() {
       return;
     }
 
+    // Simulating form submission for a showcase
     const formData = new FormData(formRef.current);
 
-    const formObject = {
+    console.log("Form Submitted Data:", {
       Name: formData.get("contact-name"),
       PhoneNumber: formData.get("contact-phone"),
       Email: formData.get("contact-email"),
       ProfileLinks: formData.get("subject"),
       Description: formData.get("contact-message"),
-    };
+    });
 
-    sendFormToStrapi(formObject);
+    // Simulate success message
+    showResult(true);
+    setTimeout(() => showResult(false), 5000);
+
+    // Reset form and CAPTCHA
     e.target.reset();
+    captchaRef.current.reset();
     setCaptchaVerified(false);
   };
 
@@ -127,7 +107,7 @@ export default function Contact() {
                     type="text"
                     id="subject"
                     name="subject"
-                    placeholder="Your Subject"
+                    placeholder="Your Subject or Profile Links"
                     required
                   />
                 </div>
@@ -141,7 +121,8 @@ export default function Contact() {
                 </div>
                 <div className="form-group">
                   <ReCAPTCHA
-                    sitekey="6LfX9bAqAAAAACWHBZIKJhZdQk5cqNe0j4QDmqOW"
+                    ref={captchaRef}
+                    sitekey="6LeKusEqAAAAAFlgV-BjyXMcdykjjjspVpHiJN7G" // Use your correct v2 Checkbox site key
                     onChange={handleCaptchaChange}
                   />
                 </div>
@@ -162,7 +143,7 @@ export default function Contact() {
               <div className="google-map-style-1">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16318479.620454589!2d72.1025874717887!3d20.73620678619067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e1!3m2!1sen!2sin!4v1736277285797!5m2!1sen!2sin"
-                  width="600"
+                  width="100%"
                   height="450"
                   allowFullScreen=""
                   loading="lazy"

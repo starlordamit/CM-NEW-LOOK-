@@ -84,7 +84,7 @@ export default function Brands() {
           transition: transform 0.2s;
         }
         .logo-item:hover {
-          transform: scale(0.95);
+          transform: scale(1.5);
         }
         .logo-img {
           object-fit: contain;
