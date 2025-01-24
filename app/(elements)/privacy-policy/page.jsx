@@ -18,6 +18,7 @@ export default function page() {
         <div className="rainbow-gradient-circle" />
         <div className="rainbow-gradient-circle theme-pink" />
       </div>
+
       <PrivacyPolicy />
 
       <Footer3 />

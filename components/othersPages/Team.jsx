@@ -2,7 +2,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { FaUser, FaPhone, FaEnvelope } from "react-icons/fa";
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 // Popup Component
 const Popup = ({ message, onClose }) => {
   return (
@@ -141,7 +141,7 @@ export default function Contact() {
 
     try {
       const response = await fetch(
-        EnvironmentContext.env.API_URL + "/join-uses",
+        "https://cms.creatorsmela.com/api/join-uses",
         {
           method: "POST",
           headers: {
