@@ -196,8 +196,8 @@ export default function ModernCreatorProfile({ creator }) {
               </div>
             </div>
           </div>
-
-          <div
+          {/* ############################# RECENT BRAND COLLABS ############################# */}
+          {/* <div
             className="advance-tab-four bg-color-blackest theme-shape mt--40"
             data-tabs="true"
           >
@@ -299,8 +299,9 @@ export default function ModernCreatorProfile({ creator }) {
                 </style>
               </div>
             </div>
-          </div>
+          </div> */}
 
+          {/* ############################# DEMOGRAPHIC STATS ################################ */}
           <div className="row row--20 ">
             <div
               className="col-lg-6 col-md-6 col-sm-6 col-12 sal-animate"
@@ -331,6 +332,7 @@ export default function ModernCreatorProfile({ creator }) {
                 </div>
               </div>
             </div>
+
             <div
               className="col-lg-6 col-md-6 col-sm-6 col-12 sal-animate"
               data-sal="slide-up"
