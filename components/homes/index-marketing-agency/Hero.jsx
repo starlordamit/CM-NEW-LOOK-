@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TyperComponent from "@/components/common/TyperComponent";
+import LottieAnimation from "./lottie"; // Adjust the import path as needed
+
 export default function Hero() {
   return (
     <div className="slider-area slider-style-1 bg-transparent variation-2 height-750">
@@ -27,30 +29,35 @@ export default function Hero() {
               <div className="button-group">
                 <Link
                   className="btn-default btn-medium round btn-icon"
-                  href={`/index-marketing-agency`}
-                >
-                  Join CreatorsClub <i className="icon feather-arrow-right" />
-                </Link>
-                <Link
-                  className="btn-default btn-medium btn-border round btn-icon"
                   href={`/contact`}
                 >
                   Contact Us <i className="icon feather-arrow-right" />
                 </Link>
+                {/* <Link
+                  className="btn-default btn-medium btn-border round btn-icon"
+                  href={`/contact`}
+                >
+                  Contact Us <i className="icon feather-arrow-right" />
+                </Link> */}
               </div>
             </div>
           </div>
 
           <div className="col-lg-4 order-1 order-lg-2">
+            <LottieAnimation
+              lotti="https://cms.creatorsmela.com/uploads/a_52c93a7967.json"
+              height={70}
+              width={70}
+            />
             <div className="thumbnail">
-              <Image
+              {/* <Image
                 alt="Banner Images"
-                // src="https://cdn.svgator.com/assets/main-page/fold2/face.svg"
-                src="https://app.svgator.com/assets/svgator.webapp/log-in-girl.svg"
+                src="https://getloaf.io/technology-2.svg"
+                // src="https://app.svgator.com/assets/svgator.webapp/log-in-girl.svg"
                 // src="https://cms.creatorsmela.com/uploads/Untitled_design_1_83a0bb0260.png"
                 width={955}
                 height={912}
-              />
+              /> */}
 
               {/* <video
                 width="400"

@@ -26,6 +26,7 @@
     "framer-motion": "^11.14.1",
     "imagesloaded": "^5.0.0",
     "isotope-layout": "^3.0.6",
+    "lottie-web": "^5.12.2",
     "next": "14.2.15",
     "photoswipe": "^5.4.4",
     "prop-types": "^15.8.1",
