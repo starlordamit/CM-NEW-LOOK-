@@ -45,6 +45,7 @@ export default function Hero() {
             <div className="thumbnail">
               <Image
                 alt="Banner Images"
+                // src="https://cdn.svgator.com/assets/main-page/fold2/face.svg"
                 src="https://app.svgator.com/assets/svgator.webapp/log-in-girl.svg"
                 // src="https://cms.creatorsmela.com/uploads/Untitled_design_1_83a0bb0260.png"
                 width={955}

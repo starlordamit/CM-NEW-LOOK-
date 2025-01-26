@@ -21,7 +21,7 @@ export default function Team() {
           email: member.Email,
           instagram: member.Instagram,
           linkedin: member.Linkdin,
-          profilePicture: member.Profilepicture?.formats?.small?.url,
+          profilePicture: member.Profilepicture?.formats?.thumbnail?.url,
         }));
         setTeamMembers(members);
       } catch (error) {
@@ -44,7 +44,7 @@ export default function Team() {
                 data-sal-delay={100}
               >
                 <h4 className="subtitle">
-                  <span className="theme-gradient">Our Experts.</span>
+                  <span className="theme-gradient">Our Team Of Experts.</span>
                 </h4>
               </div>
             </div>
@@ -53,9 +53,9 @@ export default function Team() {
             {teamMembers.map((member) => (
               <div
                 key={member.id}
-                data-sal="slide-up"
-                data-sal-duration={700}
-                data-sal-delay={100}
+                // data-sal="slide-up"
+                // data-sal-duration={700}
+                // data-sal-delay={100}
                 className="col-lg-4 col-md-6 col-12 mt--30"
               >
                 <div className="rainbow-team team-style-default">
