@@ -41,12 +41,12 @@ export default function Hero() {
             </div>
           </div>
 
-          
           <div className="col-lg-4 order-1 order-lg-2">
             <div className="thumbnail">
               <Image
                 alt="Banner Images"
-                src="https://oneclub.io/cdn/shop/files/Group_1_846434be-5bc3-4beb-a0ba-dcff6385a0c1.png?v=1726754686&width=1500"
+                src="https://app.svgator.com/assets/svgator.webapp/log-in-girl.svg"
+                // src="https://cms.creatorsmela.com/uploads/Untitled_design_1_83a0bb0260.png"
                 width={955}
                 height={912}
               />
