@@ -36,40 +36,41 @@ export const socialLinksWithSal = [
 
 export const footerSections = [
   {
-    title: "Services",
+    title: "Profiles",
     links: [
-      { href: "/about", label: "About" },
-      { href: "/portfolio", label: "Portfolio" },
-      { href: "/contact", label: "Contact" },
-      { href: "/service", label: "Service" },
+      { href: "/talents", label: "Exclusively Managed Talents" },
+      // { href: "/portfolio", label: "Portfolio" },
+      // { href: "/contact", label: "Contact" },
+      // { href: "/service", label: "Service" },
     ],
   },
   {
-    title: "Solutions",
+    title: "Contacts",
     links: [
-      { href: "/brand", label: "Brand" },
-      { href: "/call-to-action", label: "Call To Action" },
-      { href: "/counter", label: "Counter" },
-      { href: "/service", label: "Service" },
+      { href: "/contact", label: "Connect With Us" },
+      // { href: "/call-to-action", label: "Call To Action" },
+      // { href: "/counter", label: "Counter" },
+      // { href: "/service", label: "Service" },
     ],
   },
 
   {
     title: "Company",
     links: [
-      { href: "/pricing", label: "Pricing" },
-      { href: "/tab", label: "Tab Styles" },
-      { href: "/service", label: "Service" },
-      { href: "/social-share", label: "Social" },
+      { href: "/team", label: "Team" },
+      // { href: "/pricing", label: "Pricing" },
+      // { href: "/tab", label: "Tab Styles" },
+      // { href: "/service", label: "Service" },
+      // { href: "/social-share", label: "Social" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { href: "/team", label: "Team" },
-      { href: "/testimonial", label: "Testimonial" },
-      { href: "/service", label: "Service" },
-      { href: "/timeline", label: "Timeline" },
+      { href: "/", label: "Creatorstools (Soon)" },
+      // { href: "/testimonial", label: "Testimonial" },
+      // { href: "/service", label: "Service" },
+      // { href: "/timeline", label: "Timeline" },
     ],
   },
 ];

@@ -1,5 +1,5 @@
 import Pricing3 from "@/components/common/Pricing3";
-import Footer3 from "@/components/footers/Footer3";
+import Footer4 from "@/components/footers/Footer4";
 import Header4 from "@/components/headers/Header4";
 import Topbar2 from "@/components/headers/Topbar2";
 import Brands from "@/components/homes/index-marketing-agency/Brands";
@@ -51,7 +51,7 @@ export default function page() {
         </div>
       </div>
       <Brands />
-      <Footer3 />
+      <Footer4 />
     </>
   );
 }

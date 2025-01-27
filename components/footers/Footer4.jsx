@@ -2,7 +2,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { footerSections } from "@/data/footerLinks";
+
+import { footerSections, socialLinks } from "@/data/footerLinks";
 export default function Footer4() {
   return (
     <footer className="rainbow-footer footer-style-default footer-style-1">
@@ -15,22 +16,22 @@ export default function Footer4() {
                   <Link href={`/`}>
                     <Image
                       className="logo-light"
-                      alt="Corporate Logo"
-                      src="/assets/images/logo/logo.png"
+                      alt="Creatorsmela"
+                      src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
                       width={288}
                       height={100}
                     />
                     <Image
                       className="logo-dark"
-                      alt="Corporate Logo"
-                      src="/assets/images/logo/logo-dark.png"
+                      alt="Creatorsmela"
+                      src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
                       width={288}
                       height={100}
                     />
                   </Link>
                 </div>
                 <h3 className="text-big">
-                  Create Website By Doob So Quick Download And Make Your Site.
+                  India's Leading Talanet Management Agency
                 </h3>
               </div>
             </div>
@@ -38,7 +39,7 @@ export default function Footer4() {
             <div className="col-lg-2 col-md-6 col-sm-6 col-12">
               <div className="rainbow-footer-widget">
                 <div className="widget-menu-top">
-                  <h4 className="title">Company</h4>
+                  <h4 className="title">Our Stars</h4>
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       {footerSections[0].links.map((link, i) => (
@@ -50,7 +51,7 @@ export default function Footer4() {
                   </div>
                 </div>
                 <div className="widget-menu-bottom">
-                  <h4 className="title">Solutions</h4>
+                  <h4 className="title">Contact Us</h4>
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       {footerSections[1].links.map((link, i) => (
@@ -95,12 +96,21 @@ export default function Footer4() {
 
             <div className="col-lg-4 col-md-6 col-sm-12 col-12">
               <div className="rainbow-footer-widget">
-                <h4 className="title">Newsletter</h4>
+                <h4 className="title">Socials & Work</h4>
                 <div className="inner">
                   <h6 className="subtitle">
                     2000+ Our clients are subscribe Around the World
                   </h6>
-                  <form
+                  <ul className="social-icon social-default justify-content-start">
+                    {socialLinks.map((link, index) => (
+                      <li key={index}>
+                        <a href={link.href}>
+                          <i className={link.iconClass} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  {/* <form
                     className="newsletter-form"
                     onSubmit={(e) => e.preventDefault()}
                   >
@@ -112,7 +122,7 @@ export default function Footer4() {
                         Submit Now
                       </button>
                     </div>
-                  </form>
+                  </form> */}
                 </div>
               </div>
             </div>
