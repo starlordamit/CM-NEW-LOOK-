@@ -7,8 +7,8 @@ import React from "react";
 
 export const metadata = {
   title:
-    "Blog Grid || Doob Business and Consulting React Nextjs Bootstrap5 Template",
-  description: "Doob Business and Consulting React Nextjs Bootstrap5 Template",
+    "Blog Grid || Creatorsmela - India's Leading Talent Management Company",
+  description: "Creatorsmela - India's Leading Talent Management Company",
 };
 export default function page() {
   return (

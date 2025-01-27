@@ -6,8 +6,8 @@ import React from "react";
 
 export const metadata = {
   title:
-    "Progressbar || Doob Business and Consulting React Nextjs Bootstrap5 Template",
-  description: "Doob Business and Consulting React Nextjs Bootstrap5 Template",
+    "Progressbar || Creatorsmela - India's Leading Talent Management Company",
+  description: "Creatorsmela - India's Leading Talent Management Company",
 };
 export default function page() {
   return (

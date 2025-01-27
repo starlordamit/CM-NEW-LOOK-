@@ -9,8 +9,8 @@ import React from "react";
 
 export const metadata = {
   title:
-    "Blog Category || Doob Business and Consulting React Nextjs Bootstrap5 Template",
-  description: "Doob Business and Consulting React Nextjs Bootstrap5 Template",
+    "Blog Category || Creatorsmela - India's Leading Talent Management Company",
+  description: "Creatorsmela - India's Leading Talent Management Company",
 };
 export default function page({ params }) {
   const items = blogPosts.filter((elm) =>

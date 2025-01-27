@@ -7,8 +7,8 @@ import React from "react";
 
 export const metadata = {
   title:
-    "Portfolio Three Column || Doob Business and Consulting React Nextjs Bootstrap5 Template",
-  description: "Doob Business and Consulting React Nextjs Bootstrap5 Template",
+    "Portfolio Three Column || Creatorsmela - India's Leading Talent Management Company",
+  description: "Creatorsmela - India's Leading Talent Management Company",
 };
 export default function page() {
   return (

@@ -5,9 +5,8 @@ import Topbar from "@/components/headers/Topbar";
 import React from "react";
 
 export const metadata = {
-  title:
-    "Button || Doob Business and Consulting React Nextjs Bootstrap5 Template",
-  description: "Doob Business and Consulting React Nextjs Bootstrap5 Template",
+  title: "Button || Creatorsmela - India's Leading Talent Management Company",
+  description: "Creatorsmela - India's Leading Talent Management Company",
 };
 export default function page() {
   return (
