@@ -12,7 +12,8 @@ import { Analytics } from "@vercel/analytics/react";
 import Team from "@/components/elements/TeamHome";
 
 export const metadata = {
-  title: "CreatorsMela",
+  title:
+    "CreatorsMela - India's Top Leading Influencer Marketing and Talent Management Agency ",
   description:
     "India's Top Leading Influencer Marketing and Talent Management Agency",
 };
