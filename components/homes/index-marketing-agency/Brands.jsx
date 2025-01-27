@@ -35,7 +35,6 @@ export default function Brands() {
             Our Official Clients & Partners
           </span>
         </h4>
-        {/* <h2 className="title w-600 mb--20">Our Exclusive Talents</h2> */}
       </div>
 
       <div className="logo-grid">
@@ -59,35 +58,47 @@ export default function Brands() {
       </div>
 
       <style jsx>{`
-        .simple-logos {
-          // background: #f8f8f8;
-          padding: 2rem;
-          border-radius: 0.5rem;
-          text-align: center;
+        .rainbow-advance-tab-area {
+          padding: 60px 0;
         }
-        .title {
-          font-size: 1.5rem;
-          margin-bottom: 1.5rem;
-          color: #333;
+        .section-title .subtitle {
+          font-size: 18px;
+          margin-bottom: 30px;
         }
         .logo-grid {
           display: flex;
           flex-wrap: wrap;
-          gap: 1.5rem;
+          gap: 2rem;
           justify-content: center;
+          align-items: center;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
         }
         .logo-item {
-          // background: #fff;
-          // border: 1px solid #ddd;
           padding: 1rem;
-          border-radius: 0.25rem;
-          transition: transform 0.2s;
-        }
-        .logo-item:hover {
-          transform: scale(1.5);
+          transition: all 0.3s ease;
         }
         .logo-img {
+          filter: grayscale(100%) brightness(90%);
+          opacity: 0.9;
+          transition: all 0.3s ease;
           object-fit: contain;
+        }
+        .logo-item:hover .logo-img {
+          filter: grayscale(0%) brightness(100%);
+          opacity: 1;
+          cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+          .logo-grid {
+            gap: 1rem;
+            padding: 10px;
+          }
+          .logo-item {
+            padding: 0.5rem;
+          }
         }
       `}</style>
     </div>

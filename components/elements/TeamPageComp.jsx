@@ -111,7 +111,8 @@ export default function Team() {
         <div className="card-container">
           {teamMembers.map((member) => (
             <div
-              key={member.id}
+              // key={member.id}
+              key={member.slug}
               className="card"
               onClick={() => (window.location.href = `/talents/${member.slug}`)}
             >

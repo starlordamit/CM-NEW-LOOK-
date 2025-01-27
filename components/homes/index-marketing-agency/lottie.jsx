@@ -1,24 +1,21 @@
-"use client";
+// File: /components/homes/index-marketing-agency/lottie.jsx
 import React, { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 
-const LottieAnimation = () => {
+export default function LottieAnimation({ lotti, width, height }) {
   const container = useRef(null);
 
   useEffect(() => {
-    lottie.loadAnimation({
-      container: container.current, // the dom element that will contain the animation
+    const anim = lottie.loadAnimation({
+      container: container.current,
       renderer: "svg",
       loop: true,
       autoplay: true,
-      path: "https://cms.creatorsmela.com/uploads/a_52c93a7967.json", // URL to your Lottie JSON file
+      path: lotti,
     });
 
-    // Cleanup on unmount
-    return () => lottie.destroy();
-  }, []);
+    return () => anim.destroy();
+  }, [lotti]);
 
-  return <div ref={container} style={{ width: "100%", height: "100%" }}></div>;
-};
-
-export default LottieAnimation;
+  return <div ref={container} style={{ width, height }} />;
+}

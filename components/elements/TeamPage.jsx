@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function Team() {
   const [teamMembers, setTeamMembers] = useState([]);
   // const API_URL = EnvironmentContext.API_URL;
@@ -11,7 +11,7 @@ export default function Team() {
     const fetchTeamMembers = async () => {
       try {
         const response = await axios.get(
-          "https://cms.creatorsmela.com/api/teams?populate=*"
+          API_URL + "/teams?populate=*&sort=sno"
         );
         const members = response.data.data.map((member) => ({
           id: member.id,

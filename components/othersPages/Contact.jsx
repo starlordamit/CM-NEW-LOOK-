@@ -2,7 +2,11 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { FaUser, FaPhone, FaEnvelope } from "react-icons/fa";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+// import "@dotlottie/react-player/dist/index.css";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 // Popup Component
 const Popup = ({ message, onClose }) => {
   return (
@@ -56,7 +60,6 @@ const Popup = ({ message, onClose }) => {
 const LoadingSpinner = () => {
   return (
     <div className="spinner">
-      {/* Simple CSS Spinner */}
       <div className="double-bounce1"></div>
       <div className="double-bounce2"></div>
       <style jsx>{`
@@ -95,30 +98,21 @@ const LoadingSpinner = () => {
   );
 };
 
-// Success Message Component (Optional, if you still want to show it in the form)
-const Result = () => {
-  return (
-    <p className="success-message">
-      Your message has been successfully sent. We will contact you soon.
-    </p>
-  );
-};
-
 // Error Message Component
 const ErrorMessage = ({ message }) => {
   return <p className="error-message">{message}</p>;
 };
 
 export default function Contact() {
-  const [loading, setLoading] = useState(false); // Loading state
-  const [popup, setPopup] = useState({ show: false, message: "" }); // Popup state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(false);
+  const [popup, setPopup] = useState({ show: false, message: "" });
+  const [error, setError] = useState(null);
   const formRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Reset error state
-    setLoading(true); // Start loading
+    setError(null);
+    setLoading(true);
 
     const formData = new FormData(formRef.current);
 
@@ -131,40 +125,33 @@ export default function Contact() {
       formtype: "contact",
     };
 
-    // If ProfileLinks is not collected from the form, set it programmatically
     const payload = {
       data: {
         ...formObject,
-        ProfileLinks: "https://example.com/profile", // Set your desired ProfileLinks here
+        ProfileLinks: "https://example.com/profile",
       },
     };
 
     try {
-      const response = await fetch(
-        EnvironmentContext.env.API_URL + "/join-uses",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch(API_URL + "/join-uses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
       if (!response.ok) {
-        // Handle HTTP errors
         const errorData = await response.json();
         throw new Error(errorData.message || "Something went wrong!");
       }
 
-      // Optionally, parse the response data
       const resultData = await response.json();
       console.log("API Response:", resultData);
 
-      setLoading(false); // Stop loading
-      formRef.current.reset(); // Reset the form
+      setLoading(false);
+      formRef.current.reset();
 
-      // Show success popup
       setPopup({
         show: true,
         message:
@@ -172,7 +159,7 @@ export default function Contact() {
       });
     } catch (err) {
       console.error("Submission Error:", err);
-      setLoading(false); // Stop loading
+      setLoading(false);
       setError(err.message);
     }
   };
@@ -205,7 +192,6 @@ export default function Contact() {
                   onSubmit={handleSubmit}
                 >
                   <div className="form-group with-icon">
-                    {/* <FaUser className="input-icon" /> */}
                     <input
                       type="text"
                       name="contact-name"
@@ -215,7 +201,6 @@ export default function Contact() {
                     />
                   </div>
                   <div className="form-group with-icon">
-                    {/* <FaPhone className="input-icon" /> */}
                     <input
                       type="text"
                       name="contact-phone"
@@ -257,11 +242,11 @@ export default function Contact() {
                       type="submit"
                       id="submit"
                       className="btn-default btn-large rainbow-btn"
-                      disabled={loading} // Disable button while loading
+                      disabled={loading}
                     >
                       {loading ? (
                         <>
-                          <LoadingSpinner /> {/* Show spinner */}
+                          <LoadingSpinner />
                           <span style={{ marginLeft: "10px" }}>
                             Submitting...
                           </span>
@@ -272,35 +257,36 @@ export default function Contact() {
                     </button>
                   </div>
                   <div className="form-group">
-                    {error ? <ErrorMessage message={error} /> : null}
+                    {error && <ErrorMessage message={error} />}
                   </div>
                 </form>
               </div>
             </div>
             <div className="col-lg-5">
               <div className="text-content-style-1">
-                <h3 className="text-title">We Value Your Voice</h3>
-                <p>
+                <div className="lottie-container">
+                  <DotLottieReact
+                    src="https://cms.creatorsmela.com/uploads/Contact_e98f4791f6.lottie"
+                    autoplay
+                    loop
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </div>
+
+                <h3 className="text-title">Get in Touch with Us</h3>
+                {/* <p>
                   Thank you for taking the time to reach out to us. Your
                   feedback and inquiries help us grow and provide better
                   services. Feel free to share your thoughts, and we'll ensure a
                   prompt response to address your concerns or suggestions.
-                </p>
-                <p>
-                  Together, let's make something amazing happen. We're just a
-                  message away!
-                </p>
+                </p>*/}
+                {/* <p>Spark Connections, Create Magic – Your Vision Starts Here</p> */}
 
-                {/* Contact Information Section */}
                 <div className="contact-info">
-                  <div className="contact-item mb--10 flex-align-center gap--10">
+                  <div className="contact-item mb--10 flex-align-center ">
                     <FaEnvelope
                       className="contact-icon"
-                      style={{
-                        fontSize: "1.5rem",
-                        marginRight: "10px",
-                        gap: "10px",
-                      }}
+                      style={{ fontSize: "1.5rem", marginRight: "10px" }}
                     />
                     <a href="mailto:contact@creatorsmela.com">
                       contact@creatorsmela.com
@@ -309,11 +295,7 @@ export default function Contact() {
                   <div className="contact-item">
                     <FaPhone
                       className="contact-icon"
-                      style={{
-                        fontSize: "1.5rem",
-                        marginRight: "10px",
-                        gap: "10px",
-                      }}
+                      style={{ fontSize: "1.5rem", marginRight: "10px" }}
                     />
                     <a href="tel:+916377033934">+91 6377033934</a>
                   </div>
@@ -324,14 +306,9 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Popup */}
       {popup.show && <Popup message={popup.message} onClose={closePopup} />}
 
-      {/* Optional: Existing Success Message in Form */}
-      {/* {result ? <Result /> : null} */}
-
       <style jsx>{`
-        /* Optional: Style for success and error messages */
         .success-message {
           color: green;
           margin-top: 10px;
@@ -341,6 +318,34 @@ export default function Contact() {
           color: red;
           margin-top: 10px;
           text-align: center;
+        }
+        .lottie-container {
+          margin: 2rem 0;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 992px) {
+          .lottie-container {
+            margin: 1rem 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+        .contact-info {
+          // margin-top: 2rem;
+          // padding: 1.5rem;
+          // background: #f8f9fa;
+          border-radius: 8px;
+        }
+        .contact-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 1rem;
+        }
+        .contact-icon {
+          color: rgb(255, 255, 255);
         }
       `}</style>
     </div>
