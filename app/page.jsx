@@ -7,6 +7,7 @@ import Features from "@/components/homes/index-marketing-agency/Features";
 import Hero from "@/components/homes/index-marketing-agency/Hero";
 import Service from "@/components/homes/index-marketing-agency/Service";
 import React from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import Team from "@/components/elements/TeamHome";
 
@@ -19,6 +20,7 @@ export const metadata = {
 export default function page() {
   return (
     <>
+      <Analytics />
       {/* <Topbar2 /> */}
       <Header4 />
       <div>
