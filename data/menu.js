@@ -1,7 +1,7 @@
 export const menuItems = [
   {
     title: "Home",
-    hasMegamenu: true,
+    hasMegamenu: false,
     megamenuClass: "with-mega-item-2",
     colclass: "col-lg-6 single-mega-item",
     href: "/",

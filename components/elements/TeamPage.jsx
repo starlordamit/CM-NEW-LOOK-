@@ -102,6 +102,17 @@ export default function Team() {
                             </a>
                           </li>
                         )}
+                        {member.email && (
+                          <li>
+                            <a
+                              href={"mailto:" + member.email}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <i className="feather-mail" />
+                            </a>
+                          </li>
+                        )}
                       </ul>
                     </div>
                   </div>

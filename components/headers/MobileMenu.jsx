@@ -96,14 +96,14 @@ export default function MobileMenu() {
               <Image
                 className="logo-light"
                 alt="Corporate Logo"
-                src="/assets/images/logo/logo.png"
+                src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
                 width={288}
                 height={100}
               />
               <Image
                 className="logo-dark"
                 alt="Corporate Logo"
-                src="/assets/images/logo/logo-dark.png"
+                src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
                 width={288}
                 height={100}
               />

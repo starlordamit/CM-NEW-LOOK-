@@ -1,4 +1,4 @@
-/* app/Brands/page.jsx */
+/* app/Brands/page.jsx line 1 */
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -7,6 +7,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Brands() {
   const [logos, setLogos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -18,18 +19,17 @@ export default function Brands() {
         setLogos(Array.isArray(logoData) ? logoData : []);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
 
+  const [loadedIndexes, setLoadedIndexes] = useState({});
+
   return (
     <div className="rainbow-advance-tab-area rainbow-section mt--40">
-      <div
-        className="section-title text-center"
-        data-sal="slide-up"
-        data-sal-duration={700}
-        data-sal-delay={100}
-      >
+      <div className="section-title text-center">
         <h4 className="subtitle">
           <span className="theme-gradient">
             Our Official Clients & Partners
@@ -37,25 +37,40 @@ export default function Brands() {
         </h4>
       </div>
 
-      <div className="logo-grid">
-        {logos.map((logo, idx) => {
-          const imageUrl = logo?.url
-            ? API_URL.replace("/api", "") + logo.url
-            : "/placeholder-logo.png";
-
-          return (
-            <div className="logo-item" key={idx}>
-              <Image
-                src={imageUrl}
-                alt={logo?.name || "Brand Logo"}
-                width={120}
-                height={60}
-                className="logo-img"
-              />
-            </div>
-          );
-        })}
-      </div>
+      {loading ? (
+        <div className="logo-grid">
+          {Array(6)
+            .fill(null)
+            .map((_, idx) => (
+              <div className="logo-item" key={idx}>
+                <div className="skeleton" />
+              </div>
+            ))}
+        </div>
+      ) : (
+        <div className="logo-grid">
+          {logos.map((logo, idx) => {
+            const imageUrl = logo?.url
+              ? API_URL.replace("/api", "") + logo.url
+              : "/placeholder-logo.png";
+            return (
+              <div className="logo-item" key={idx}>
+                {!loadedIndexes[idx] && <div className="skeleton" />}
+                <Image
+                  src={imageUrl}
+                  alt={logo?.name || "Brand Logo"}
+                  width={120}
+                  height={60}
+                  className="logo-img"
+                  onLoadingComplete={() =>
+                    setLoadedIndexes((prev) => ({ ...prev, [idx]: true }))
+                  }
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       <style jsx>{`
         .rainbow-advance-tab-area {
@@ -78,6 +93,7 @@ export default function Brands() {
         .logo-item {
           padding: 1rem;
           transition: all 0.3s ease;
+          position: relative;
         }
         .logo-img {
           filter: grayscale(100%) brightness(90%);
@@ -90,7 +106,12 @@ export default function Brands() {
           opacity: 1;
           cursor: pointer;
         }
-
+        .skeleton {
+          width: 120px;
+          height: 60px;
+          background: #ccc;
+          border-radius: 4px;
+        }
         @media (max-width: 768px) {
           .logo-grid {
             gap: 1rem;
