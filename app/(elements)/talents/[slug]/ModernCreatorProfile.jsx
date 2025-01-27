@@ -71,104 +71,102 @@ export default function ModernCreatorProfile({ creator }) {
                   }}
                 >
                   {HH1.map((profile, index) => (
-                    <>
-                      <div
-                        key={index}
-                        style={{
-                          width: "240px",
-                          borderRadius: "12px",
-                          // backgroundColor: isDarkMode ? "#2a2a2a" : "#fff",
-                          // boxShadow: isDarkMode
-                          //   ? "0 0 10px rgba(0,0,0,0.5)"
-                          //   : "0 2px 8px rgba(0,0,0,0.1)",
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "12px",
-                          position: "relative",
-                          transition:
-                            "transform 0.3s ease, background-color 0.3s ease",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.transform = "translateY(-5px)")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.transform = "translateY(0)")
-                        }
-                      >
-                        <div style={{ position: "relative" }}>
-                          <img
-                            src={
-                              `${API_URL.replace("/api", "")}` +
-                              profile.ProfileImage.url
-                            }
-                            alt={profile.handle}
-                            style={{
-                              width: "60px",
-                              height: "60px",
-                              borderRadius: "50%",
-                              objectFit: "cover",
-                              border: "2px solid #fff gradient",
-                            }}
-                          />
+                    <div
+                      key={index}
+                      style={{
+                        width: "240px",
+                        borderRadius: "12px",
+                        // backgroundColor: isDarkMode ? "#2a2a2a" : "#fff",
+                        // boxShadow: isDarkMode
+                        //   ? "0 0 10px rgba(0,0,0,0.5)"
+                        //   : "0 2px 8px rgba(0,0,0,0.1)",
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "12px",
+                        position: "relative",
+                        transition:
+                          "transform 0.3s ease, background-color 0.3s ease",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.transform = "translateY(-5px)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.transform = "translateY(0)")
+                      }
+                    >
+                      <div style={{ position: "relative" }}>
+                        <img
+                          src={
+                            `${API_URL.replace("/api", "")}` +
+                            profile.ProfileImage.url
+                          }
+                          alt={profile.handle}
+                          style={{
+                            width: "60px",
+                            height: "60px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                            border: "2px solid #fff gradient",
+                          }}
+                        />
 
-                          <div
-                            style={{
-                              position: "absolute",
-                              bottom: "-5px",
-                              right: "-5px",
-                              borderRadius: "50%",
-                              // background: isDarkMode ? "#333" : "#fff",
-                              // padding: "5px",
-                            }}
-                          >
-                            <PlatformIcon platform={profile.Platform} />
-                          </div>
+                        <div
+                          style={{
+                            position: "absolute",
+                            bottom: "-5px",
+                            right: "-5px",
+                            borderRadius: "50%",
+                            // background: isDarkMode ? "#333" : "#fff",
+                            // padding: "5px",
+                          }}
+                        >
+                          <PlatformIcon platform={profile.Platform} />
                         </div>
-                        {/* <FaArrowRight
+                      </div>
+                      {/* <FaArrowRight
                         style={{
                           cursor: "pointer",
                         }}
                       /> */}
-                        <div
-                          style={{
-                            flex: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            marginLeft: "10px",
-                          }}
-                        >
-                          <a href={profile.URL} target="_blank">
-                            <span
-                              style={{
-                                fontWeight: "600",
-                                fontSize: "1.7rem",
-
-                                marginBottom: "2px",
-                              }}
-                            >
-                              {profile.Name} 🔗
-                            </span>
-                          </a>
-                          <div
+                      <div
+                        style={{
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        <a href={profile.URL} target="_blank">
+                          <span
                             style={{
-                              fontSize: "1.4rem",
+                              fontWeight: "600",
+                              fontSize: "1.7rem",
+
+                              marginBottom: "2px",
                             }}
                           >
-                            {formatNumber(profile.Followers)}+
-                            {profile.Platform === "YouTube"
-                              ? " Subscribers"
-                              : " Followers"}
-                          </div>
-                          {/* <div
+                            {profile.Name} 🔗
+                          </span>
+                        </a>
+                        <div
+                          style={{
+                            fontSize: "1.4rem",
+                          }}
+                        >
+                          {formatNumber(profile.Followers)}+
+                          {profile.Platform === "YouTube"
+                            ? " Subscribers"
+                            : " Followers"}
+                        </div>
+                        {/* <div
                             style={{
                               fontSize: "1.4rem",
                             }}
                           >
                             {profile.Catagory}
                           </div> */}
-                        </div>
                       </div>
-                    </>
+                    </div>
                   ))}
                 </div>
                 {/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
