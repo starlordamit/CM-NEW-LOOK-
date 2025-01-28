@@ -65,8 +65,7 @@ export default function Team() {
                         <Image
                           alt={member.name}
                           src={
-                            "https://cms.creatorsmela.com" +
-                            member.profilePicture
+                            API_URL.replace("/api", "") + member.profilePicture
                           }
                           width={500}
                           height={500}

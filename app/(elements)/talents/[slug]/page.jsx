@@ -66,7 +66,7 @@ export default async function Page({ params }) {
   // If your API doesn't return Photos, Videos, etc., you must adapt this part.
   // Here we’re assuming the API returns these arrays, or we fall back to placeholders.
   const attributes = creator;
-  console.log(attributes.Demographics[0].Demographicsage1317);
+  // console.log(attributes.Demographics[0].Demographicsage1317);
 
   const transformedCreator = {
     CreatorName: attributes.CreatorName,
@@ -88,40 +88,40 @@ export default async function Page({ params }) {
     AudienceStats: [
       {
         title: "13-17 Years",
-        value: attributes.Demographics[0].Demographicsage1317 || 10,
+        value: attributes.Demographics.Demographicsage1317 || 10,
         colorClass: "bar-color-1",
       },
       {
         title: "18-24 Years",
-        value: attributes.Demographics[0].Demographicsage1824 || 10,
+        value: attributes.Demographics.Demographicsage1824 || 10,
         colorClass: "bar-color-2",
       },
       {
         title: "25-34 Years",
-        value: attributes.Demographics[0].Demographicsage2534 || 10,
+        value: attributes.Demographics.Demographicsage2534 || 10,
         colorClass: "bar-color-3",
       },
       {
         title: "35-44 Years",
-        value: attributes.Demographics[0].Demographicsage3544 || 10,
+        value: attributes.Demographics.Demographicsage3544 || 10,
         colorClass: "bar-color-4",
       },
       {
         title: "45+ Years",
-        value: attributes.Demographics[0].Demographicsage45 || 10,
+        value: attributes.Demographics.Demographicsage45 || 10,
         colorClass: "bar-color-1",
       },
     ],
     GenderDistribution: [
       {
         title: "Male",
-        value: Math.round(attributes.Demographics[0].MaleAudience) || 10,
+        value: Math.round(attributes.Demographics.MaleAudience) || 10,
         colorClass: "bar-color-1",
       },
       {
         title: "Female",
-        value: attributes.Demographics[0].MaleAudience
-          ? Math.round(100 - attributes.Demographics[0].MaleAudience)
+        value: attributes.Demographics.MaleAudience
+          ? Math.round(100 - attributes.Demographics.MaleAudience)
           : 90,
         colorClass: "bar-color-3",
       },

@@ -26,7 +26,7 @@ export default function Team() {
       setLoading(true);
       try {
         const response = await fetch(
-          `${API_URL}/talent-descriptions?pagination[pageSize]=${ITEMS_PER_PAGE}&pagination[page]=${currentPage}&populate[0]=Handels.Followers&populate=images`,
+          `${API_URL}/talent-descriptions?pagination[pageSize]=${ITEMS_PER_PAGE}&pagination[page]=${currentPage}&populate[0]=Handels&populate=images`,
           { cache: "no-store" }
         );
         const json = await response.json();

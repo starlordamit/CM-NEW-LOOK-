@@ -300,7 +300,7 @@ export default function ModernCreatorProfile({ creator }) {
           </div> */}
 
           {/* ############################# DEMOGRAPHIC STATS ################################ */}
-          <div className="row row--20 ">
+          <div className="row row--20 mb--40 ">
             <div
               className="col-lg-6 col-md-6 col-sm-6 col-12 sal-animate"
               data-sal="slide-up"

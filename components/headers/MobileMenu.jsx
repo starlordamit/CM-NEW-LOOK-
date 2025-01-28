@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef } from "react";
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function MobileMenu() {
   const pathname = usePathname();
   const popupRef = useRef(null); // For .popup-mobile-menu
@@ -96,14 +96,20 @@ export default function MobileMenu() {
               <Image
                 className="logo-light"
                 alt="Corporate Logo"
-                src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
+                src={
+                  API_URL.replace("/api", "") +
+                  "/uploads/Creators_3436d4ebcf.svg"
+                }
                 width={288}
                 height={100}
               />
               <Image
                 className="logo-dark"
                 alt="Corporate Logo"
-                src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
+                src={
+                  API_URL.replace("/api", "") +
+                  "/uploads/Creators_3436d4ebcf.svg"
+                }
                 width={288}
                 height={100}
               />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ModeSwitcher from "../common/ModeSwitcher";
 import { openMenu } from "@/utlis/toggleMenu";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function Header4({
   parentClass = "rainbow-header header-default header-not-transparent header-fixed",
   btnClass = "btn-default btn-small round",
@@ -19,9 +20,13 @@ export default function Header4({
                 <Image
                   className="logo-light"
                   alt="Corporate Logo"
-                  src="https://www.creatorsmela.com/images/logo-white.png"
+                  // https://cms.clyromedia.com/uploads/Creators_3436d4ebcf.svg
+                  src={
+                    API_URL.replace("/api", "") +
+                    "/uploads/Creators_3436d4ebcf.svg"
+                  }
                   width={288}
-                  height={100}
+                  height={200}
                 />
                 <Image
                   className="logo-dark"

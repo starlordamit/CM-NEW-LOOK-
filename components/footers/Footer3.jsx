@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { footerSections, socialLinks } from "@/data/footerLinks";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function Footer3() {
   return (
     <footer className="rainbow-footer footer-style-default footer-style-1">
@@ -17,14 +18,20 @@ export default function Footer3() {
                     <Image
                       className="logo-light"
                       alt="Creatorsmela"
-                      src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
+                      src={
+                        API_URL.replace("/api", "") +
+                        "/uploads/Creators_3436d4ebcf.svg"
+                      }
                       width={288}
                       height={100}
                     />
                     <Image
                       className="logo-dark"
                       alt="Creatorsmela"
-                      src="https://cms.creatorsmela.com/uploads/Creatorsmela_logo_white_0761af60cf.png"
+                      src={
+                        API_URL.replace("/api", "") +
+                        "/uploads/Creators_3436d4ebcf.svg"
+                      }
                       width={288}
                       height={100}
                     />
