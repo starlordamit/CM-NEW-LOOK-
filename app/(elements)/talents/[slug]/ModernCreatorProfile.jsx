@@ -97,8 +97,8 @@ export default function ModernCreatorProfile({ creator }) {
                       <div style={{ position: "relative" }}>
                         <img
                           src={
-                            `${API_URL.replace("/api", "")}` +
-                            profile.ProfileImage.url
+                            `${API_URL.replace("/api", "")}` +(
+                            profile.ProfileImage.url || "/uploads/15_d1090f1a5a.png")
                           }
                           alt={profile.handle}
                           style={{
