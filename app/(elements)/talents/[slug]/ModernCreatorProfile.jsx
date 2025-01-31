@@ -99,7 +99,7 @@ export default function ModernCreatorProfile({ creator }) {
                           src={
                             profile?.ProfileImage?.url
     ? `${API_URL.replace("/api", "")}` + profile.ProfileImage.url
-    : "/uploads/15_d1090f1a5a.png"
+    : `${API_URL.replace("/api", "")}`+"/uploads/15_d1090f1a5a.png"
                           }
                           alt={profile.handle}
                           style={{
